@@ -1,0 +1,26 @@
+{
+  "name": "backlog-buddy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "develop": "webpack --mode development --watch",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bwettenstein/backlog-buddy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bwettenstein/backlog-buddy/issues"
+  },
+  "homepage": "https://github.com/bwettenstein/backlog-buddy#readme",
+  "devDependencies": {
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}
