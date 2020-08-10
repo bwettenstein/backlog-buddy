@@ -1,0 +1,57 @@
+@import 'config';
+
+body {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: auto 1fr auto;
+
+  nav {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 5vh;
+    border: solid;
+
+    .search-wrapper {
+      .search-bar {
+        margin-left: $nav-margin-left;
+        height: $search-bar-height;
+        width: $search-bar-width;
+        border-radius: $border-radius;
+        padding-left: 1rem;
+      }
+      .search-bar:focus {
+        outline: none;
+      }
+      .search-btn {
+        margin-left: $nav-margin-left;
+        height: 2rem;
+        width: 5rem;
+      }
+    }
+
+    .title {
+      font-size: $title-size;
+      //   margin-right: 1rem;
+      color: grey;
+    }
+
+    .title:focus {
+      color: grey;
+    }
+
+    .my-backlog {
+      margin-left: $nav-margin-left;
+    }
+  }
+
+  .container {
+    border: solid;
+  }
+  footer {
+    border: solid;
+    text-align: center;
+  }
+}
