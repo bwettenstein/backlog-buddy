@@ -3,5 +3,10 @@
 // App name
 // backlog-buddy's App
 // Key
-// 6f648d71547350ea7a3e9591fe90438d
-// Add this as a user-key parameter to your API calls to authenticate.
+
+import { Api } from './Api';
+import { Ui } from './Ui';
+
+let result = Api.searchMovie('batman');
+
+// console.log(typeof result, result);

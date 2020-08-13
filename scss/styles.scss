@@ -49,7 +49,33 @@ body {
 
   .container {
     border: solid;
+
+    .search-results-container {
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .search-result-item {
+        flex: 0 40%;
+        padding: 1rem;
+        box-sizing: border-box;
+        border-left: solid;
+        border-right: solid;
+        border-bottom: solid;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+          height: 200px;
+          width: 150px;
+        }
+      }
+    }
   }
+
   footer {
     border: solid;
     text-align: center;
