@@ -6,7 +6,9 @@
 
 import { Api } from './Api';
 import { Ui } from './Ui';
+import { AppCtrl } from './AppCtrl';
 
-let result = Api.searchMovie('batman');
+// let result = Api.searchMovie('batman');
+AppCtrl.init();
 
-// console.log(typeof result, result);
+// Api.searchFilmById('tt0372784');

@@ -1,4 +1,5 @@
 import { Ui } from './Ui';
+import { AppCtrl } from './AppCtrl';
 
 const Api = (function () {
   const apiAttributes = {
@@ -21,10 +22,13 @@ const Api = (function () {
     },
     // To search s=SEARCH_QUERY&api_key=API_KEY
     searchMovie: function (searchTitle) {
+      // Ui.clearContainer();
       // Will be returned, this holds all of the objects in the array returned from the API's promise
       let filmObjectArray = [];
+      const attributes = this.getApiAttributes();
 
-      fetch('/src/batman.json')
+      // fetch('/src/batman.json')
+      fetch(`${attributes.URL}s=${searchTitle}&apikey=${attributes.API_KEY}`)
         .then((data) => data.json())
         .then((results) => {
           const resultsArray = Array.from(results.Search);
@@ -35,40 +39,21 @@ const Api = (function () {
 
           Ui.addResultsToUi(filmObjectArray);
 
-          // resultsArray.forEach((data) => {
-          //   // console.log(data.Title, data.Year);
-          //   Ui.addResultsToUi(data.imdbID, data.Title, data.Year, data.Poster);
-          //   const randoObject = {
-          //     id: data.imdbID,
-          //     title: data.Title,
-          //     year: data.Year,
-          //     poster: data.Poster,
-          //   };
-          // });
+          // To test the json locally
+          // fetch('/src/batman.json')
+        })
+        .catch((err) => console.log(err));
+    },
+    searchFilmById: function (imdbId) {
+      const attributes = this.getApiAttributes();
 
-          // const id = JSON.stringify(results.searchMovie[x].imdbId);
-          // const title = JSON.stringify(results.Search[x].Title);
-          // const year = JSON.stringify(results.Search[x].Year);
+      // FOR URL ONLY
+      // fetch(`${attributes.URL}i=${imdbId}&apikey=${attributes.API_KEY}`)
 
-          // newFilmObject = this.createFilmObject(id, title, year);
-          // filmObjectArray.push(searchResults);
-
-          // JUST FOR ACTUAL URLLLLLLL
-          // fetch(`${attributes.URL}s=${searchTitle}&apikey=${attributes.API_KEY}`)
-          //   .then((data) => data.json())
-          //   .then((results) => {
-          //     //   console.log(results, typeof results);
-
-          //     for (let x = 0; x < results.Search.length; x++) {
-          //       const searchResults = {
-          //         id: JSON.stringify(results.Search[x].imdbID),
-          //         title: JSON.stringify(results.Search[x].Title),
-          //         year: JSON.stringify(results.Search[x].Year),
-          //       };
-          // const title = JSON.stringify(results.Search[x].Title);
-          // const year = JSON.stringify(results.Search[x].Year);
-
-          // newFilmObject = this.createFilmObject(id, title, year);
+      fetch('/src/batmanBegins.json')
+        .then((data) => data.json())
+        .then((result) => {
+          console.log(result.id);
         })
         .catch((err) => console.log(err));
     },
