@@ -1,5 +1,8 @@
+import { AppCtrl } from './AppCtrl';
+
 const Ui = (function () {
   const UiSelectors = {
+    title: '.title',
     searchBar: '.search-bar',
     searchBtn: '.search-btn',
     container: '.container',
@@ -11,7 +14,6 @@ const Ui = (function () {
     getUiSelectors: function () {
       return UiSelectors;
     },
-    toggleClass: function () {},
     changeContainerClass: function (name) {
       if (name === 'search-results-container') {
         document.querySelector(
@@ -30,7 +32,7 @@ const Ui = (function () {
 
       resultArray.forEach(function (result) {
         output += `
-                <div class="search-result-item" id=${result.imdbID}">
+                <div class="search-result-item" id=${result.imdbID}>
                     <h3 class="result-title">${result.Title} (${result.Year})</h3>
                     <img class="result-poster" src=${result.Poster} alt=${result.Title}/>
                 </div>`;
@@ -38,18 +40,27 @@ const Ui = (function () {
 
       parentDiv.innerHTML = output;
       container.append(parentDiv);
+
+      AppCtrl.loadResultsEventListeners();
     },
     addResultsByIdToUi: function (searchResultsObject) {
+      this.clearContainer();
+
       const selectors = this.getUiSelectors();
       const container = document.querySelector(selectors.container);
       const parentDiv = document.createElement('div');
+
+      // Need to get
+      // Title, Year, Rating, release date , runtime, genre, director, writer, actors, plot, poster
 
       parentDiv.className = 'result-by-id-container';
       let output = '';
 
       output += `
       <div class="id-result">
-        <h3 class="id-title">${searchResultsObject.Title} ${searchResultsObject.Year}</h3>
+        <h3 class="id-title">${searchResultsObject.Title} (${searchResultsObject.Year})</h3>
+        <img src="${searchResultsObject.Poster}" class="img-poster" alt="${searchResultsObject.Title}"/>
+        <p class="id-plot">${searchResultsObject.Plot}</p>
       </div>
       `;
 
@@ -61,15 +72,9 @@ const Ui = (function () {
       const container = document.querySelector(selectors.container);
 
       container.innerHTML = '';
-
-      // while (container.childElementCount > 0) {
-      //   container.remove(container.lastChild);
-      // }
     },
     getAllSearchResults: function () {
       const selectors = this.getUiSelectors();
-      console.log(selectors.searchResultItem);
-      console.log(document.querySelectorAll(selectors.searchResultItem));
       return document.querySelectorAll(selectors.searchResultItem);
     },
   };

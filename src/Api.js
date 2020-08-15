@@ -50,10 +50,13 @@ const Api = (function () {
       // FOR URL ONLY
       // fetch(`${attributes.URL}i=${imdbId}&apikey=${attributes.API_KEY}`)
 
-      fetch('/src/batmanBegins.json')
+      // For local data only
+      // fetch('/src/batmanBegins.json')
+      fetch(`${attributes.URL}i=${imdbId}&apikey=${attributes.API_KEY}`)
         .then((data) => data.json())
         .then((result) => {
-          console.log(result.id);
+          // Ui.addResultsByIdToUi(result);
+          Ui.addResultsByIdToUi(result);
         })
         .catch((err) => console.log(err));
     },
