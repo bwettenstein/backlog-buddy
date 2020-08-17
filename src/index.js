@@ -4,9 +4,10 @@
 // backlog-buddy's App
 // Key
 
-import { Api } from './Api';
-import { Ui } from './Ui';
 import { AppCtrl } from './AppCtrl';
+import { Ui } from './Ui';
+import { Ombi } from './Omdb';
+import { Tmdb } from './Tmdb';
 
 // let result = Api.searchMovie('batman');
 AppCtrl.init();

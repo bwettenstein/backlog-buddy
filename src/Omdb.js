@@ -1,7 +1,7 @@
 import { Ui } from './Ui';
-import { AppCtrl } from './AppCtrl';
 
-const Api = (function () {
+// House info and methods for all the Used APIs
+const Omdb = (function () {
   const apiAttributes = {
     API_KEY: 'de7f6f4e',
     URL: `http://www.omdbapi.com/?`,
@@ -17,10 +17,6 @@ const Api = (function () {
     getApiAttributes: function () {
       return apiAttributes;
     },
-    createFilmObject(id, title, year) {
-      return filmObject(id, title, year);
-    },
-    // To search s=SEARCH_QUERY&api_key=API_KEY
     searchMovie: function (searchTitle) {
       // Ui.clearContainer();
       // Will be returned, this holds all of the objects in the array returned from the API's promise
@@ -38,6 +34,7 @@ const Api = (function () {
           });
 
           Ui.addResultsToUi(filmObjectArray);
+          Ui.setPreviousElement(filmObjectArray);
 
           // To test the json locally
           // fetch('/src/batman.json')
@@ -52,15 +49,27 @@ const Api = (function () {
 
       // For local data only
       // fetch('/src/batmanBegins.json')
-      fetch(`${attributes.URL}i=${imdbId}&apikey=${attributes.API_KEY}`)
+      fetch(
+        `${attributes.URL}i=${imdbId}&plot=full&apikey=${attributes.API_KEY}`
+      )
         .then((data) => data.json())
         .then((result) => {
-          // Ui.addResultsByIdToUi(result);
+          console.log(result);
           Ui.addResultsByIdToUi(result);
         })
         .catch((err) => console.log(err));
     },
+    determineIfFresh: function (rottenTomatoesRating) {
+      // Get rid of percent sign at end of value
+      rottenTomatoesRating = String(rottenTomatoesRating);
+      rottenTomatoesRating = rottenTomatoesRating.replace('%', '');
+
+      if (rottenTomatoesRating < 59) {
+        return false;
+      }
+      return true;
+    },
   };
 })();
 
-export { Api };
+export { Omdb };

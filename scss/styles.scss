@@ -51,6 +51,20 @@ body {
   .container {
     border: solid;
 
+    .back-btn-container {
+      position: absolute;
+      align-content: center;
+      display: flex;
+      justify-content: flex-start;
+      padding-left: $back-btn-container-padding-left;
+      padding-top: $back-btn-container-padding-top;
+
+      .back-btn {
+        width: 15px;
+        cursor: pointer;
+      }
+    }
+
     .search-results-container {
       margin: 0 auto;
       // Use below for media query possibly
@@ -85,6 +99,73 @@ body {
         .result-poster {
           height: 200px;
           width: 150px;
+        }
+      }
+    }
+    .result-by-id-container {
+      padding-top: $result-by-id-padding;
+      padding-bottom: $result-by-id-padding;
+
+      .id-result {
+        display: flex;
+        align-items: flex-start;
+        padding: 0 $result-by-id-padding;
+        .img-poster {
+          margin-right: $result-by-id-margin;
+          height: $img-poster-height;
+          max-width: $img-poster-max-width;
+        }
+
+        .id-details {
+          .id-year {
+            margin-bottom: 0;
+          }
+
+          .id-runtime-rating {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 0;
+
+            .id-runtime {
+              margin-right: $result-by-id-margin;
+            }
+            .id-rating {
+              margin-right: $result-by-id-margin;
+            }
+          }
+          .critical-rating {
+            display: flex;
+            flex-wrap: wrap;
+            .id-imdb {
+              display: flex;
+              align-items: center;
+              .imdb-logo {
+                // width: $imdb-height;
+                height: $imdb-height;
+                margin-right: $imdb-logo-margin;
+              }
+              .imdb-rating {
+                margin-right: $imdb-rating-margin;
+              }
+            }
+            .id-rotten-tomatoes {
+              display: flex;
+              align-items: center;
+              .rotten-icon {
+                height: $rotten-height;
+                margin-right: $rotten-logo-margin;
+              }
+            }
+          }
+          .partial-cast {
+            .by {
+              font-weight: normal;
+              .partial-cast-space {
+                font-weight: bold;
+                margin-left: $partial-cast-margin;
+              }
+            }
+          }
         }
       }
     }
