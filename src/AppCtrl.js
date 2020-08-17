@@ -29,14 +29,14 @@ const AppCtrl = (function () {
       });
 
       container.addEventListener('click', function (e) {
+        console.log(e.target);
         let targetList;
         targetList = e.target.parentNode.classList;
         targetList.forEach((target) => {
           if (target === 'back-btn') {
-            console.log('HSLSLSLSLSLS');
+            const getPreviousElement = Ui.getPreviousElement();
+            Ui.addResultsToUi(getPreviousElement);
           }
-          const getPreviousElement = Ui.getPreviousElement();
-          Ui.addResultsToUi(getPreviousElement);
         });
       });
     },
@@ -46,7 +46,6 @@ const AppCtrl = (function () {
       document.querySelectorAll(selectors.searchResultItem).forEach((item) =>
         item.addEventListener('click', function (e) {
           console.log(e);
-          // console.log(e.target.id);
           Omdb.searchFilmById(e.target.id);
         })
       );

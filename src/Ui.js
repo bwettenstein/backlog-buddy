@@ -12,6 +12,7 @@ const Ui = (function () {
     searchResultsContainer: '.search-results-container',
     searchResultItem: '.search-result-item',
     idDetails: '.id-details',
+    resultByIdContainer: '.result-by-id-container',
   };
   let previousElement;
 
@@ -133,17 +134,28 @@ const Ui = (function () {
       parentDiv.innerHTML = output;
       container.append(parentDiv);
 
-      // Insert the back button
-      const backBtnContainer = document.createElement('div');
-      backBtnContainer.className = 'back-btn-container';
-      output = `      
-      <i class="back-btn fas fa-arrow-left"></i>
-      `;
-      backBtnContainer.innerHTML = output;
-      // Inserts the button before the id-result
-      document
-        .querySelector(selectors.container)
-        .insertAdjacentElement('afterbegin', backBtnContainer);
+      this.insertBackButton('idResult');
+    },
+    // Adds the back button for searching by id or Backlog
+    insertBackButton: function (buttonFor) {
+      const selectors = this.getUiSelectors();
+      let output;
+      if (buttonFor === 'idResult') {
+        const resultByIdContainer = document.querySelector(
+          selectors.resultByIdContainer
+        );
+        const backBtnContainer = document.createElement('div');
+        backBtnContainer.className = 'back-btn-container';
+        output = `      
+          <i class="back-btn fas fa-arrow-left"></i>
+        `;
+
+        backBtnContainer.innerHTML = output;
+        resultByIdContainer.insertAdjacentElement(
+          'beforebegin',
+          backBtnContainer
+        );
+      }
     },
     clearContainer: function () {
       const selectors = Ui.getUiSelectors();
