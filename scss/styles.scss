@@ -1,10 +1,11 @@
 @import 'config';
 
 body {
-  font-family: $font-family;
+  // font-family: $font-family;
   display: grid;
   height: 100vh;
   grid-template-rows: auto 1fr auto;
+  font-family: sans-serif;
 
   nav {
     margin: 0;
@@ -35,7 +36,6 @@ body {
 
     .title {
       font-size: $title-size;
-      //   margin-right: 1rem;
       color: grey;
     }
 
@@ -51,20 +51,48 @@ body {
   .container {
     border: solid;
 
-    .back-btn-container {
-      position: absolute;
-      align-content: center;
+    .button-container {
       display: flex;
-      justify-content: flex-start;
-      padding-left: $back-btn-container-padding-left;
-      padding-top: $back-btn-container-padding-top;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
 
-      .back-btn {
-        width: 15px;
-        cursor: pointer;
+      .back-btn-container {
+        align-content: center;
+        display: flex;
+        justify-content: flex-start;
+        padding-left: $back-btn-container-padding-left;
+        padding-top: $back-btn-container-padding-top;
+
+        .back-btn {
+          width: $back-btn-width;
+          height: $back-btn-height;
+          cursor: pointer;
+        }
+      }
+
+      .add-btn-container {
+        .add-btn {
+          width: $back-btn-width;
+          height: $back-btn-height;
+          cursor: pointer;
+        }
+      }
+
+      .checkmark-remove-container {
+        display: flex;
+
+        .checkmark-icon,
+        .remove-btn {
+          width: $back-btn-width;
+          height: $back-btn-height;
+        }
+
+        .remove-btn {
+          cursor: pointer;
+        }
       }
     }
-
     .search-results-container {
       margin: 0 auto;
       // Use below for media query possibly
@@ -86,6 +114,7 @@ body {
         flex-direction: column;
         align-items: center;
         pointer-events: all;
+        text-align: center;
 
         .result-title,
         .result-poster {
@@ -101,9 +130,11 @@ body {
           width: 150px;
         }
       }
+      .search-result-item:hover {
+      }
     }
     .result-by-id-container {
-      padding-top: $result-by-id-padding;
+      padding-top: $result-by-id-top-padding;
       padding-bottom: $result-by-id-padding;
 
       .id-result {

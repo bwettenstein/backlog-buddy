@@ -13,6 +13,8 @@ const Ui = (function () {
     searchResultItem: '.search-result-item',
     idDetails: '.id-details',
     resultByIdContainer: '.result-by-id-container',
+    addBtnContainer: '.add-btn-container',
+    buttonContainer: '.button-container',
   };
   let previousElement;
 
@@ -63,6 +65,7 @@ const Ui = (function () {
       // Title, Year, Rating, release date , runtime, genre, director, writer, actors, plot, poster
 
       parentDiv.className = 'result-by-id-container';
+      parentDiv.id = `${searchResultsObject.imdbID}`;
       let output = '';
 
       const imdbId = searchResultsObject.Ratings[0].Value;
@@ -134,7 +137,8 @@ const Ui = (function () {
       parentDiv.innerHTML = output;
       container.append(parentDiv);
 
-      this.insertBackButton('idResult');
+      // this.insertBackButton('idResult');
+      this.insertButtonContainer('idResult');
     },
     // Adds the back button for searching by id or Backlog
     insertBackButton: function (buttonFor) {
@@ -146,15 +150,81 @@ const Ui = (function () {
         );
         const backBtnContainer = document.createElement('div');
         backBtnContainer.className = 'back-btn-container';
-        output = `      
-          <i class="back-btn fas fa-arrow-left"></i>
-        `;
+        // output = `
+        //   <i class="back-btn fas fa-arrow-left"></i>
+        // `;
+        output = `<i class="back-btn fas fa-arrow-circle-left"></i>`;
 
         backBtnContainer.innerHTML = output;
+        // resultByIdContainer.insertAdjacentElement(
+        //   'beforebegin',
+        //   backBtnContainer
+        // );
+        return backBtnContainer;
+      }
+    },
+    insertAddButton: function () {
+      // let output;
+      const addButtonContainer = document.createElement('div');
+      addButtonContainer.className = 'add-btn-container';
+      // output = `<i class="add-btn fas fa-plus"></i>`;
+      const output = `<i class="add-btn fas fa-plus-circle"></i>`;
+      addButtonContainer.innerHTML = output;
+      return addButtonContainer;
+    },
+    insertRemoveButton: function () {
+      const removeButtonContainer = document.createElement('div');
+      removeButtonContainer.className = 'remove-btn-container';
+      const output = `<i class="remove-btn fas fa-times-circle"></i>`;
+      removeButtonContainer.innerHTML = output;
+      return removeButtonContainer;
+    },
+    insertCheckmarkIcon: function () {
+      const checkmarkIconContainer = document.createElement('div');
+      checkmarkIconContainer.className = 'checkmark-icon-container';
+      const output = '<i class="checkmark-icon fas fa-check-circle"></i>';
+      checkmarkIconContainer.innerHTML = output;
+      return checkmarkIconContainer;
+    },
+    insertButtonContainer: function (containerFor) {
+      let output;
+      const selectors = this.getUiSelectors();
+      let backBtnContainer = this.insertBackButton('idResult');
+      let addBtnContainer = this.insertAddButton();
+      let resultByIdContainer = document.querySelector(
+        selectors.resultByIdContainer
+      );
+      let removeBtnContainer = this.insertRemoveButton();
+      let checkmarkIcon = this.insertCheckmarkIcon();
+      let buttonContainer = document.createElement('div');
+      buttonContainer.className = 'button-container';
+      // If containerFor is idResult, that means the buttons should be added when the user clicks on a search result
+      // The button container for idResult will always have a back button, while the container for searchResult won't
+      if (containerFor === 'idResult') {
+        // addRemoveBtnContainer will hold add and remove buttons so flex styling will be way easier
+        buttonContainer.append(backBtnContainer, addBtnContainer);
         resultByIdContainer.insertAdjacentElement(
           'beforebegin',
-          backBtnContainer
+          buttonContainer
         );
+        // If the add button is clicked, remove it and replace it with the checkmark icon and remove button
+      } else if (containerFor === 'addBtnClick') {
+        buttonContainer = document.querySelector(selectors.buttonContainer);
+        addBtnContainer = document.querySelector(selectors.addBtnContainer);
+        // deleting the button container
+        addBtnContainer.remove();
+        // buttonContainer.removeChild(addBtnContainer);
+        console.log('called');
+        // Creating container for remove button and checkmark icon
+        let checkmarkRemoveContainer = document.createElement('div');
+        checkmarkRemoveContainer.className = 'checkmark-remove-container';
+        checkmarkRemoveContainer.append(checkmarkIcon, removeBtnContainer);
+        // Add the container to the button container
+        buttonContainer.append(checkmarkRemoveContainer);
+      }
+      // If container is searchResult, that means the buttons should be added to the elements after they have been searched
+      else {
+        return;
       }
     },
     clearContainer: function () {
@@ -162,6 +232,11 @@ const Ui = (function () {
       const container = document.querySelector(selectors.container);
 
       container.innerHTML = '';
+    },
+    clearButtonContainer: function () {
+      const selectors = Ui.getUiSelectors();
+      const buttonContainer = document.querySelector(selectors.buttonContainer);
+      buttonContainer.remove();
     },
     getAllSearchResults: function () {
       const selectors = this.getUiSelectors();

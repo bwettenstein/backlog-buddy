@@ -29,13 +29,26 @@ const AppCtrl = (function () {
       });
 
       container.addEventListener('click', function (e) {
-        console.log(e.target);
         let targetList;
         targetList = e.target.parentNode.classList;
+        console.log(targetList, 'targetlist');
         targetList.forEach((target) => {
-          if (target === 'back-btn') {
+          // Back button container often gets targeted depending on where the cursor clicks the icon,
+          // so just include it with the event listener
+          if (target === 'back-btn' || target === 'back-btn-container') {
             const getPreviousElement = Ui.getPreviousElement();
             Ui.addResultsToUi(getPreviousElement);
+          } else if (target === 'add-btn' || target === 'add-btn-container') {
+            // call the add to backlog function here
+            Ui.insertButtonContainer('addBtnClick');
+            return;
+          } else if (
+            target === 'remove-btn' ||
+            target === 'remove-btn-container'
+          ) {
+            // Clear the button container
+            Ui.clearButtonContainer();
+            Ui.insertButtonContainer('idResult');
           }
         });
       });
@@ -45,7 +58,6 @@ const AppCtrl = (function () {
 
       document.querySelectorAll(selectors.searchResultItem).forEach((item) =>
         item.addEventListener('click', function (e) {
-          console.log(e);
           Omdb.searchFilmById(e.target.id);
         })
       );

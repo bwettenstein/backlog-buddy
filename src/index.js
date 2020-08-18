@@ -9,7 +9,4 @@ import { Ui } from './Ui';
 import { Ombi } from './Omdb';
 import { Tmdb } from './Tmdb';
 
-// let result = Api.searchMovie('batman');
 AppCtrl.init();
-
-// Api.searchFilmById('tt0372784');
