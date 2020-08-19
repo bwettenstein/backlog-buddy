@@ -1,6 +1,7 @@
 import { Ui } from './Ui';
 import { Ombdb, Omdb } from './Omdb';
 import { Tmdb } from './Tmdb';
+import { Backlog } from './Backlog';
 
 const AppCtrl = (function () {
   return {
@@ -11,6 +12,8 @@ const AppCtrl = (function () {
       const backBtn = document.querySelector(selectors.backBtn);
       const container = document.querySelector(selectors.container);
       const title = document.querySelector(selectors.title);
+      const myBacklog = document.querySelector(selectors.myBacklog);
+      const backlog = Backlog.getCurrentBacklog();
 
       title.addEventListener('click', function () {
         Ui.clearContainer();
@@ -28,10 +31,18 @@ const AppCtrl = (function () {
         }
       });
 
+      myBacklog.addEventListener('click', function () {
+        Ui.insertBacklogContainer();
+        backlog.forEach((item) => {
+          console.log(item, 'item');
+          Omdb.searchFilmForBacklog(item);
+        });
+      });
+
       container.addEventListener('click', function (e) {
         let targetList;
         targetList = e.target.parentNode.classList;
-        console.log(targetList, 'targetlist');
+        // console.log(targetList, 'targetlist');
         targetList.forEach((target) => {
           // Back button container often gets targeted depending on where the cursor clicks the icon,
           // so just include it with the event listener
@@ -41,7 +52,11 @@ const AppCtrl = (function () {
           } else if (target === 'add-btn' || target === 'add-btn-container') {
             // call the add to backlog function here
             Ui.insertButtonContainer('addBtnClick');
-            return;
+            setTimeout(Ui.clearCheckmark, 3000);
+            const itemId = document.querySelector(selectors.resultByIdContainer)
+              .id;
+
+            Backlog.addToBacklog(itemId);
           } else if (
             target === 'remove-btn' ||
             target === 'remove-btn-container'

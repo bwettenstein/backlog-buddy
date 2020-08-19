@@ -6,6 +6,7 @@ body {
   height: 100vh;
   grid-template-rows: auto 1fr auto;
   font-family: sans-serif;
+  margin: 0px;
 
   nav {
     margin: 0;
@@ -57,6 +58,18 @@ body {
       justify-content: space-between;
       align-items: center;
 
+      .feedback-container {
+        padding-top: $feedback-container-padding-top;
+
+        .added-backlog {
+          color: $feedback-added-color;
+        }
+        .removed-backlog {
+          color: $feedback-removed-color;
+          border: solid;
+        }
+      }
+
       .back-btn-container {
         align-content: center;
         display: flex;
@@ -72,20 +85,28 @@ body {
       }
 
       .add-btn-container {
+        padding-top: $add-btn-container-padding-top;
+        padding-right: $add-btn-container-padding-right;
         .add-btn {
-          width: $back-btn-width;
-          height: $back-btn-height;
+          width: $add-btn-big-width;
+          height: $add-btn-big-height;
           cursor: pointer;
         }
       }
 
       .checkmark-remove-container {
         display: flex;
+        padding-right: $checkmark-remove-container-padding-right;
+        padding-top: $checkmark-remove-container-padding-top;
 
         .checkmark-icon,
         .remove-btn {
           width: $back-btn-width;
           height: $back-btn-height;
+        }
+
+        .checkmark-icon {
+          color: $feedback-added-color;
         }
 
         .remove-btn {
@@ -116,21 +137,19 @@ body {
         pointer-events: all;
         text-align: center;
 
-        .result-title,
-        .result-poster {
+        .title-container {
           pointer-events: none;
         }
 
-        .result-title:hover {
-          border: solid;
+        .result-title,
+        .result-poster {
+          pointer-events: none;
         }
 
         .result-poster {
           height: 200px;
           width: 150px;
         }
-      }
-      .search-result-item:hover {
       }
     }
     .result-by-id-container {

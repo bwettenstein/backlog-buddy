@@ -17,11 +17,28 @@ $search-bar-width: 20rem;
 $search-btn-height: 2rem;
 $search-btn-width: 5rem;
 
+// Add btn container
+$add-btn-container-padding-right: 1rem;
+$add-btn-container-padding-top: 1.5rem;
+$add-btn-big-height: 30px;
+$add-btn-big-width: 40px;
+$add-btn-small-height: 20px;
+
 // Back button
 $back-btn-container-padding-left: 1rem;
 $back-btn-container-padding-top: 1.5rem;
 $back-btn-height: 30px;
 $back-btn-width: 40px;
+
+// Checkmark icon, remove button, container for checkmark and remove
+$checkmark-remove-container-padding-right: 1rem;
+$checkmark-remove-container-padding-top: 1.5rem;
+$checkmark-icon-height: 25px;
+
+// Feedback container
+$feedback-container-padding-top: 1rem;
+$feedback-added-color: #5cdb95;
+$feedback-removed-color: #f44336;
 
 // Result by id
 $result-by-id-padding: 50px;

@@ -1,9 +1,11 @@
 import { AppCtrl } from './AppCtrl';
 import { Omdb } from './Omdb';
+import { Backlog } from './Backlog';
 
 const Ui = (function () {
   const UiSelectors = {
     title: '.title',
+    myBacklog: '.my-backlog',
     searchBar: '.search-bar',
     searchBtn: '.search-btn',
     backBtn: '.back-btn',
@@ -14,7 +16,10 @@ const Ui = (function () {
     idDetails: '.id-details',
     resultByIdContainer: '.result-by-id-container',
     addBtnContainer: '.add-btn-container',
+    backBtnContainer: '.back-btn-container',
     buttonContainer: '.button-container',
+    feedbackContainer: '.feedback-container',
+    checkmarkIconContainer: '.checkmark-icon-container',
   };
   let previousElement;
 
@@ -45,7 +50,9 @@ const Ui = (function () {
       resultArray.forEach((result) => {
         output += `
                 <div class="search-result-item" id=${result.imdbID}>
-                    <h3 class="result-title">${result.Title} (${result.Year})</h3>
+                <div class="title-container">
+                <h3 class="result-title">${result.Title} (${result.Year})</h3>
+                </div>
                     <img class="result-poster" src=${result.Poster} alt="${result.Title}.jpg"/>
                 </div>`;
       });
@@ -68,7 +75,8 @@ const Ui = (function () {
       parentDiv.id = `${searchResultsObject.imdbID}`;
       let output = '';
 
-      const imdbId = searchResultsObject.Ratings[0].Value;
+      const imdbRating = searchResultsObject.Ratings[0].Value;
+
       let rottenTomatoesRating = '';
       let rottenTomatoesIconPath = '';
       let isFresh;
@@ -101,7 +109,7 @@ const Ui = (function () {
             <div class="id-imdb">
                 <img src="./src/img/320px-IMDB_Logo_2016.svg.png" alt="imdb" class="imdb-logo"/>
                 <h3 class="imdb-rating">
-                  ${imdbId} 
+                  ${imdbRating} 
                 </h3>
               </div>
               <div class="id-rotten-tomatoes">
@@ -137,8 +145,53 @@ const Ui = (function () {
       parentDiv.innerHTML = output;
       container.append(parentDiv);
 
-      // this.insertBackButton('idResult');
       this.insertButtonContainer('idResult');
+
+      // Check to see if item is already in backlog
+      const imdbId = searchResultsObject.imdbID;
+      const backlog = Backlog.getCurrentBacklog();
+      // If it's already in the backlog, clear the add button
+      if (backlog.indexOf(String(imdbId)) !== -1) {
+        this.insertButtonContainer('addBtnClick');
+      }
+    },
+    insertBacklogContainer: function () {
+      this.clearContainer();
+      const selectors = this.getUiSelectors();
+      const backlog = Backlog.getCurrentBacklog();
+      const container = document.querySelector(selectors.container);
+      const backlogContainer = document.createElement('div');
+      backlogContainer.className = 'backlog-container';
+      let output = `
+      <div class="backlog-stats">
+        <h1>My Backlog</h1>
+        <p class="number-of-items">${backlog.length} items</p>
+        <p class="backlog-duration"></p>
+      </div>
+      `;
+      backlogContainer.innerHTML = output;
+      container.append(backlogContainer);
+    },
+    addBacklogToUi: function (backlogItemInfo) {
+      // this.clearContainer();
+      const selectors = this.getUiSelectors();
+      const backlog = Backlog.getCurrentBacklog();
+      const container = document.querySelector(selectors.container);
+      let output;
+      // const backlogContainer = document.createElement('div');
+      // backlogContainer.className = 'backlog-container';
+      const backlogItem = document.createElement('div');
+      backlogItem.className = 'backlog-item';
+
+      output = `
+      <div class="title-container">
+        <h3 class="backlog-title">${backlogItemInfo.Title} (${backlogItemInfo.Year})</h3>
+      </div>
+      <img class="backlog-poster" src=${backlogItemInfo.Poster} alt=${backlogItemInfo.Title}.jpg"/>
+      `;
+
+      backlogItem.innerHTML = output;
+      container.append(backlogItem);
     },
     // Adds the back button for searching by id or Backlog
     insertBackButton: function (buttonFor) {
@@ -154,12 +207,7 @@ const Ui = (function () {
         //   <i class="back-btn fas fa-arrow-left"></i>
         // `;
         output = `<i class="back-btn fas fa-arrow-circle-left"></i>`;
-
         backBtnContainer.innerHTML = output;
-        // resultByIdContainer.insertAdjacentElement(
-        //   'beforebegin',
-        //   backBtnContainer
-        // );
         return backBtnContainer;
       }
     },
@@ -187,7 +235,6 @@ const Ui = (function () {
       return checkmarkIconContainer;
     },
     insertButtonContainer: function (containerFor) {
-      let output;
       const selectors = this.getUiSelectors();
       let backBtnContainer = this.insertBackButton('idResult');
       let addBtnContainer = this.insertAddButton();
@@ -199,7 +246,7 @@ const Ui = (function () {
       let buttonContainer = document.createElement('div');
       buttonContainer.className = 'button-container';
       // If containerFor is idResult, that means the buttons should be added when the user clicks on a search result
-      // The button container for idResult will always have a back button, while the container for searchResult won't
+      // The button container for idResult will always have a back button, while the container for title-container won't
       if (containerFor === 'idResult') {
         // addRemoveBtnContainer will hold add and remove buttons so flex styling will be way easier
         buttonContainer.append(backBtnContainer, addBtnContainer);
@@ -213,8 +260,6 @@ const Ui = (function () {
         addBtnContainer = document.querySelector(selectors.addBtnContainer);
         // deleting the button container
         addBtnContainer.remove();
-        // buttonContainer.removeChild(addBtnContainer);
-        console.log('called');
         // Creating container for remove button and checkmark icon
         let checkmarkRemoveContainer = document.createElement('div');
         checkmarkRemoveContainer.className = 'checkmark-remove-container';
@@ -225,6 +270,42 @@ const Ui = (function () {
       // If container is searchResult, that means the buttons should be added to the elements after they have been searched
       else {
         return;
+      }
+    },
+    // Gives user feedback when they add or remove something
+    // giveFeedback: function (action) {
+    //   const selectors = this.getUiSelectors();
+    //   const buttonContainer = document.querySelector(selectors.buttonContainer);
+    //   const feedbackContainer = document.createElement('div');
+    //   feedbackContainer.className = 'feedback-container';
+    //   const backBtnContainer = document.querySelector(
+    //     selectors.backBtnContainer
+    //   );
+    //   let output;
+    //   if (action === 'add') {
+    //     output = `<p class="feedback added-backlog">Item added to backlog</p>`;
+    //   } else {
+    //     output = `<p class="feedback removed-backlog">Item removed from backlog</p>`;
+    //   }
+    //   feedbackContainer.innerHTML = output;
+    //   backBtnContainer.insertAdjacentElement('afterend', feedbackContainer);
+    // },
+    // // ClearFeedback is called in a settime out after the add or remove button is clicked
+    // clearFeedback: function () {
+    //   const selectors = Ui.getUiSelectors();
+    //   const feedbackContainer = document.querySelector(
+    //     selectors.feedbackContainer
+    //   );
+    //   feedbackContainer.remove();
+    // },
+    // Settimeout will call this after the item is added to the backlog
+    clearCheckmark: function () {
+      const selectors = Ui.getUiSelectors();
+      const checkmarkIconContainer = document.querySelector(
+        selectors.checkmarkIconContainer
+      );
+      if (checkmarkIconContainer) {
+        checkmarkIconContainer.remove();
       }
     },
     clearContainer: function () {

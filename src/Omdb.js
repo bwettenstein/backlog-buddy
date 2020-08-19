@@ -59,6 +59,19 @@ const Omdb = (function () {
         })
         .catch((err) => console.log(err));
     },
+    // The backlog array will only be populated with their imdbIds, so this function will search for their data using
+    // their imdbId and display it
+    searchFilmForBacklog: function (imdbId) {
+      const attributes = this.getApiAttributes();
+      fetch(
+        `${attributes.URL}i=${imdbId}&plot=full&apikey=${attributes.API_KEY}`
+      )
+        .then((data) => data.json())
+        .then((result) => {
+          Ui.addBacklogToUi(result);
+        })
+        .catch((err) => console.log(err));
+    },
     determineIfFresh: function (rottenTomatoesRating) {
       // Get rid of percent sign at end of value
       rottenTomatoesRating = String(rottenTomatoesRating);
