@@ -53,9 +53,9 @@ const AppCtrl = (function () {
             // call the add to backlog function here
             Ui.insertButtonContainer('addBtnClick');
             setTimeout(Ui.clearCheckmark, 3000);
+
             const itemId = document.querySelector(selectors.resultByIdContainer)
               .id;
-
             Backlog.addToBacklog(itemId);
           } else if (
             target === 'remove-btn' ||
@@ -64,6 +64,9 @@ const AppCtrl = (function () {
             // Clear the button container
             Ui.clearButtonContainer();
             Ui.insertButtonContainer('idResult');
+            const itemId = document.querySelector(selectors.resultByIdContainer)
+              .id;
+            Backlog.deleteItemFromBacklog(itemId);
           }
         });
       });
