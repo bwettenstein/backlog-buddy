@@ -20,6 +20,9 @@ const Ui = (function () {
     buttonContainer: '.button-container',
     feedbackContainer: '.feedback-container',
     checkmarkIconContainer: '.checkmark-icon-container',
+    backlogItem: '.backlog-item',
+    backlogContainer: '.backlog-container',
+    backlogItemContainer: '.backlog-item-container',
   };
   let previousElement;
 
@@ -168,20 +171,28 @@ const Ui = (function () {
         <p class="number-of-items">${backlog.length} items</p>
         <p class="backlog-duration"></p>
       </div>
+      <div class="backlog-item-container">
+      </div>
       `;
       backlogContainer.innerHTML = output;
       container.append(backlogContainer);
     },
     addBacklogToUi: function (backlogItemInfo) {
-      // this.clearContainer();
       const selectors = this.getUiSelectors();
       const backlog = Backlog.getCurrentBacklog();
+      const backlogContainer = document.querySelector(
+        selectors.backlogContainer
+      );
       const container = document.querySelector(selectors.container);
       let output;
-      // const backlogContainer = document.createElement('div');
-      // backlogContainer.className = 'backlog-container';
       const backlogItem = document.createElement('div');
+      backlogItem.id = backlogItemInfo.imdbID;
+
       backlogItem.className = 'backlog-item';
+
+      const backlogItemContainer = document.querySelector(
+        selectors.backlogItemContainer
+      );
 
       output = `
       <div class="title-container">
@@ -191,7 +202,10 @@ const Ui = (function () {
       `;
 
       backlogItem.innerHTML = output;
-      container.append(backlogItem);
+      backlogItemContainer.append(backlogItem);
+      // backlogContainer.append(backlogItem);
+      // container.append(backlogItem);
+      AppCtrl.loadBacklogResultsEventListeners();
     },
     // Adds the back button for searching by id or Backlog
     insertBackButton: function (buttonFor) {

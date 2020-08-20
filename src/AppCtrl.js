@@ -80,6 +80,14 @@ const AppCtrl = (function () {
         })
       );
     },
+    loadBacklogResultsEventListeners: function () {
+      const selectors = Ui.getUiSelectors();
+      document.querySelectorAll(selectors.backlogItem).forEach((item) =>
+        item.addEventListener('click', function (e) {
+          Omdb.searchFilmById(e.target.id);
+        })
+      );
+    },
     init: function () {
       this.loadEventListenersOnInit();
       // Tmdb.getTrendingFilms();

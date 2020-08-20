@@ -219,6 +219,53 @@ body {
         }
       }
     }
+
+    .backlog-container {
+      margin: 0 auto;
+      // Use below for media query possibly
+      // padding-top: 5vh;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      flex-direction: column;
+
+      .backlog-stats {
+        text-align: center;
+      }
+
+      .backlog-item-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        .backlog-item {
+          flex: 0 40%;
+          padding: 0.5rem;
+          box-sizing: border-box;
+          // border-left: solid;
+          // border-right: solid;
+          // border-bottom: solid;
+          margin-left: 1rem;
+
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          pointer-events: all;
+          text-align: center;
+
+          .backlog-poster {
+            height: 200px;
+            width: 150px;
+          }
+
+          .title-container,
+          .backlog-poster {
+            pointer-events: none;
+          }
+        }
+      }
+    }
   }
 
   footer {
