@@ -23,6 +23,7 @@ const Ui = (function () {
     backlogItem: '.backlog-item',
     backlogContainer: '.backlog-container',
     backlogItemContainer: '.backlog-item-container',
+    clearBacklogBtn: '.clear-backlog-btn',
   };
   let previousElement;
 
@@ -170,6 +171,7 @@ const Ui = (function () {
         <h1>My Backlog</h1>
         <p class="number-of-items">${backlog.length} items</p>
         <p class="backlog-duration"></p>
+        <button class="clear-backlog-btn" type="submit">Clear backlog</button>
       </div>
       <div class="backlog-item-container">
       </div>
@@ -203,8 +205,7 @@ const Ui = (function () {
 
       backlogItem.innerHTML = output;
       backlogItemContainer.append(backlogItem);
-      // backlogContainer.append(backlogItem);
-      // container.append(backlogItem);
+
       AppCtrl.loadBacklogResultsEventListeners();
     },
     // Adds the back button for searching by id or Backlog

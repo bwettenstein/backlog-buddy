@@ -2,6 +2,7 @@ import { Ui } from './Ui';
 import { Ombdb, Omdb } from './Omdb';
 import { Tmdb } from './Tmdb';
 import { Backlog } from './Backlog';
+import { StorageControl } from './StorageControl';
 
 const AppCtrl = (function () {
   return {
@@ -13,7 +14,6 @@ const AppCtrl = (function () {
       const container = document.querySelector(selectors.container);
       const title = document.querySelector(selectors.title);
       const myBacklog = document.querySelector(selectors.myBacklog);
-      const backlog = Backlog.getCurrentBacklog();
 
       title.addEventListener('click', function () {
         Ui.clearContainer();
@@ -32,6 +32,7 @@ const AppCtrl = (function () {
       });
 
       myBacklog.addEventListener('click', function () {
+        const backlog = Backlog.getCurrentBacklog();
         Ui.insertBacklogContainer();
         backlog.forEach((item) => {
           console.log(item, 'item');
@@ -41,8 +42,8 @@ const AppCtrl = (function () {
 
       container.addEventListener('click', function (e) {
         let targetList;
+
         targetList = e.target.parentNode.classList;
-        // console.log(targetList, 'targetlist');
         targetList.forEach((target) => {
           // Back button container often gets targeted depending on where the cursor clicks the icon,
           // so just include it with the event listener
@@ -56,7 +57,8 @@ const AppCtrl = (function () {
 
             const itemId = document.querySelector(selectors.resultByIdContainer)
               .id;
-            Backlog.addToBacklog(itemId);
+            StorageControl.storeItem(itemId);
+            console.log(StorageControl.getItemsFromStorage(), 'item item item');
           } else if (
             target === 'remove-btn' ||
             target === 'remove-btn-container'
@@ -82,15 +84,23 @@ const AppCtrl = (function () {
     },
     loadBacklogResultsEventListeners: function () {
       const selectors = Ui.getUiSelectors();
+      // Adds event listeners to each backlog item
       document.querySelectorAll(selectors.backlogItem).forEach((item) =>
         item.addEventListener('click', function (e) {
           Omdb.searchFilmById(e.target.id);
         })
       );
+      // Clears the entire backlog if the button is clicked
+      document
+        .querySelector(selectors.clearBacklogBtn)
+        .addEventListener('click', () => {
+          Backlog.clearBacklog();
+          Ui.clearContainer();
+          Ui.insertBacklogContainer();
+        });
     },
     init: function () {
       this.loadEventListenersOnInit();
-      // Tmdb.getTrendingFilms();
     },
   };
 })();
