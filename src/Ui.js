@@ -39,9 +39,17 @@ const Ui = (function () {
       const selectors = this.getUiSelectors();
       const container = document.querySelector(selectors.container);
       const parentDiv = document.createElement('div');
-      parentDiv.className = 'home-page-container';
+      parentDiv.className = 'homepage-container';
 
-      // const output = ``
+      const output = `
+      <div class="homepage-info-container">
+        <h1 class="home-title">Your backlog</h1>
+        <h3 class="home-info">Keep track of what you want to watch</h1>
+      </div>
+      `;
+
+      parentDiv.innerHTML = output;
+      container.append(parentDiv);
     },
     addResultsToUi: function (resultArray) {
       this.clearContainer();
@@ -97,7 +105,6 @@ const Ui = (function () {
         isFresh = Omdb.determineIfFresh('0');
         rottenTomatoesIconPath = this.getRottenTomatoesIcon(isFresh);
       }
-      // const rottenTomatoesIconPath = this.determineIfFresh();
 
       output += `
       <div class="id-result">
@@ -167,11 +174,12 @@ const Ui = (function () {
       const backlogContainer = document.createElement('div');
       backlogContainer.className = 'backlog-container';
       let output = `
-      <div class="backlog-stats">
-        <h1>My Backlog</h1>
-        <p class="number-of-items">${backlog.length} items</p>
-        <p class="backlog-duration"></p>
-        <button class="clear-backlog-btn" type="submit">Clear backlog</button>
+      <div class="backlog-stats-container">
+        <h1 class="my-backlog-title">My Backlog</h1>
+        <div class="backlog-stats-flex">
+          <p class="number-of-items">${backlog.length} items</p>
+          <button class="clear-backlog-btn" type="submit">Clear backlog</button>
+        </div>
       </div>
       <div class="backlog-item-container">
       </div>

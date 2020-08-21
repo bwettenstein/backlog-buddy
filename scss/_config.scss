@@ -1,6 +1,10 @@
 $font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
   Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
+// Color
+$blue: #618daa;
+$white: #ffff;
+
 $border-radius: 15px;
 
 // Nav default styles
@@ -16,6 +20,13 @@ $search-bar-width: 20rem;
 // Search button
 $search-btn-height: 2rem;
 $search-btn-width: 5rem;
+
+// Homepage wrapper
+$hitchcock-img: '/src/img/Hitchcock.jpg';
+$stock-img-one: '/src/img/stock.jpg';
+$homepage-height: 760px;
+$home-title-font-size: 3rem;
+$home-info-font-size: 1rem;
 
 // Add btn container
 $add-btn-container-padding-right: 1rem;
@@ -46,8 +57,6 @@ $result-by-id-top-padding: 10px;
 $result-by-id-margin: 50px;
 
 //imdb logo
-// $imdb-height: 26px;
-// $imdb-width: 38px;
 $imdb-height: 26px;
 $imdb-logo-margin: 1rem;
 $imdb-rating-margin: 20px;
@@ -62,3 +71,10 @@ $partial-cast-margin: 50px;
 // Img poster
 $img-poster-height: 400px;
 $img-poster-max-width: 300px;
+
+// backlog container
+$backlog-container-elements-margin: 1rem;
+
+// clear backlog button
+$button-border-radius: 20px;
+$button-font-size: 0.9rem;

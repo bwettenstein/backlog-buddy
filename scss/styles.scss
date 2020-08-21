@@ -5,17 +5,18 @@ body {
   display: grid;
   height: 100vh;
   grid-template-rows: auto 1fr auto;
-  font-family: sans-serif;
+  font-family: $font-family;
   margin: 0px;
 
   nav {
-    margin: 0;
+    // margin: 1rem;
     padding: 0;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     height: 5vh;
-    border: solid;
+    // border: solid;
+    border-bottom: solid;
 
     .search-wrapper {
       .search-bar {
@@ -38,19 +39,56 @@ body {
     .title {
       font-size: $title-size;
       color: grey;
+      cursor: pointer;
     }
 
-    .title:focus {
-      color: grey;
+    .backlog-buddy:hover {
+      border-bottom: solid;
     }
 
     .my-backlog {
       margin-left: $nav-margin-left;
+      cursor: pointer;
+    }
+    .my-backlog:hover {
+      border-bottom: solid;
     }
   }
 
   .container {
     border: solid;
+
+    .homepage-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: $homepage-height;
+      background-image: url($stock-img-one);
+      background-size: cover;
+      opacity: 0.9;
+
+      .homepage-info-container {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 4rem;
+
+        .home-title {
+          padding: 0;
+          margin: 0;
+          text-align: center;
+          color: $white;
+          letter-spacing: 0.15rem;
+          font-size: $home-title-font-size;
+        }
+
+        .home-info {
+          color: $white;
+          font-size: $home-info-font-size;
+          letter-spacing: 0.2rem;
+          padding-bottom: 1rem;
+        }
+      }
+    }
 
     .button-container {
       display: flex;
@@ -229,8 +267,62 @@ body {
       justify-content: center;
       flex-direction: column;
 
-      .backlog-stats {
+      .backlog-stats-container {
         text-align: center;
+        .my-backlog-title {
+          text-align: center;
+        }
+        .backlog-stats-flex {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+
+          .number-of-items {
+            margin-right: $backlog-container-elements-margin;
+          }
+
+          .clear-backlog-btn {
+            margin-left: $backlog-container-elements-margin;
+            border: none;
+            border-radius: 20px;
+            background-color: $blue;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: $button-font-size;
+            cursor: pointer;
+            transition: all 0.3s;
+          }
+          .clear-backlog-btn:hover {
+            letter-spacing: 2px;
+          }
+          .clear-backlog-btn:hover::before {
+            opacity: 1;
+            transform: scale(1, 1);
+          }
+          .clear-backlog-btn:before {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+            transition: all 0.3s;
+            border-top-width: 1px;
+            border-bottom-width: 1px;
+            border-top-style: solid;
+            border-bottom-style: solid;
+          }
+          .clear-backlog-btn::after {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            transition: all 0.3s;
+          }
+        }
       }
 
       .backlog-item-container {
@@ -247,6 +339,7 @@ body {
           // border-right: solid;
           // border-bottom: solid;
           margin-left: 1rem;
+          border-bottom: solid;
 
           display: flex;
           flex-direction: column;
@@ -271,5 +364,6 @@ body {
   footer {
     border: solid;
     text-align: center;
+    border-top: solid;
   }
 }

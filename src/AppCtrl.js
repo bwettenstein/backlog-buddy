@@ -17,6 +17,7 @@ const AppCtrl = (function () {
 
       title.addEventListener('click', function () {
         Ui.clearContainer();
+        Ui.homePage();
       });
 
       searchBtn.addEventListener('click', function () {
@@ -65,6 +66,7 @@ const AppCtrl = (function () {
           ) {
             // Clear the button container
             Ui.clearButtonContainer();
+            // insert it again, but without the checkmark icon
             Ui.insertButtonContainer('idResult');
             const itemId = document.querySelector(selectors.resultByIdContainer)
               .id;
@@ -94,13 +96,17 @@ const AppCtrl = (function () {
       document
         .querySelector(selectors.clearBacklogBtn)
         .addEventListener('click', () => {
+          // Clears the backlog from localStorage
           Backlog.clearBacklog();
+          // Clears the container
           Ui.clearContainer();
+          // Repopulates the backlog container with the current backlog elements
           Ui.insertBacklogContainer();
         });
     },
     init: function () {
       this.loadEventListenersOnInit();
+      Ui.homePage();
     },
   };
 })();
