@@ -27,7 +27,7 @@ const Omdb = (function () {
       fetch(`${attributes.URL}s=${searchTitle}&apikey=${attributes.API_KEY}`)
         .then((data) => data.json())
         .then((results) => {
-          console.log(results, 'DA RESULTS');
+          // console.log(results, 'DA RESULTS');
           const resultsArray = Array.from(results.Search);
 
           resultsArray.forEach((result) => {
@@ -55,7 +55,7 @@ const Omdb = (function () {
       )
         .then((data) => data.json())
         .then((result) => {
-          console.log(result);
+          console.log(result, 'result');
           Ui.addResultsByIdToUi(result);
         })
         .catch((err) => console.log(err));

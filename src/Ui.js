@@ -38,8 +38,8 @@ const Ui = (function () {
 
       const selectors = this.getUiSelectors();
       const container = document.querySelector(selectors.container);
-      const parentDiv = document.createElement('div');
-      parentDiv.className = 'homepage-container';
+      const homepageContainer = document.createElement('div');
+      homepageContainer.className = 'homepage-container';
 
       const output = `
       <div class="homepage-info-container">
@@ -48,8 +48,22 @@ const Ui = (function () {
       </div>
       `;
 
-      parentDiv.innerHTML = output;
-      container.append(parentDiv);
+      homepageContainer.innerHTML = output;
+      container.append(homepageContainer);
+
+      const homepageFooterContainer = document.createElement('div');
+      homepageFooterContainer.className = 'homepage-footer-container';
+
+      const footerOutput = `
+      <div class="homepage-footer-text">
+        <h2 class="homepage-footer-big-text">No registration required</h2>
+        <p class="homepage-footer-normal-text">Just search for a film or show and add it to your backlog</p>
+      </div>
+      <img class="homepage-footer-image" src="/src/img/Hitchcock.jpg" alt="Hitchcock.jpg"/>
+      `;
+
+      homepageFooterContainer.innerHTML = footerOutput;
+      container.append(homepageFooterContainer);
     },
     addResultsToUi: function (resultArray) {
       this.clearContainer();
