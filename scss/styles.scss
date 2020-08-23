@@ -36,7 +36,7 @@ body {
         height: 2rem;
         width: 5rem;
         cursor: pointer;
-        border-radius: $border-radius;
+        border-radius: $button-border-radius;
         border: none;
         letter-spacing: 0.2px;
         background-color: $light-grey;
@@ -337,7 +337,7 @@ body {
           .clear-backlog-btn {
             margin-left: $backlog-container-elements-margin;
             border: none;
-            border-radius: 20px;
+            border-radius: $button-border-radius;
             background-color: $blue;
             color: #ffffff;
             font-weight: 500;
@@ -388,22 +388,18 @@ body {
           flex: 0 40%;
           padding: 0.5rem;
           box-sizing: border-box;
-          // border-left: solid;
-          // border-right: solid;
-          // border-bottom: solid;
           margin-left: 1rem;
-          // border-bottom: solid;
 
           display: flex;
           flex-direction: column;
           align-items: center;
           pointer-events: all;
           text-align: center;
-          // background-color: $light-grey;
+          cursor: pointer;
 
           .backlog-poster {
-            height: 200px;
-            width: 150px;
+            height: $backlog-poster-height;
+            width: $backlog-poster-width;
           }
 
           .title-container,
@@ -411,6 +407,22 @@ body {
             pointer-events: none;
           }
         }
+        .backlog-item:hover {
+          border: solid $gunmetal-grey;
+        }
+      }
+    }
+
+    .feedback-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .feedback-text {
+        text-align: center;
+        padding-top: $feedback-text-padding-top;
+        color: $feedback-text-color;
+        font-size: $feedback-font-size;
       }
     }
   }

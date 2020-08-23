@@ -24,6 +24,7 @@ $search-bar-width: 20rem;
 // Search button
 $search-btn-height: 2rem;
 $search-btn-width: 5rem;
+$search-btn-border-radius: 20px;
 
 // Homepage container
 $hitchcock-img: '/src/img/Hitchcock.jpg';
@@ -83,7 +84,14 @@ $img-poster-max-width: 300px;
 
 // backlog container
 $backlog-container-elements-margin: 1rem;
+$backlog-poster-height: 200px;
+$backlog-poster-width: 150px;
 
 // clear backlog button
 $button-border-radius: 20px;
 $button-font-size: 0.9rem;
+
+// feedback text
+$feedback-text-padding-top: 1rem;
+$feedback-text-color: #b71c1c;
+$feedback-font-size: 1.5rem;

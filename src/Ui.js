@@ -24,6 +24,7 @@ const Ui = (function () {
     backlogContainer: '.backlog-container',
     backlogItemContainer: '.backlog-item-container',
     clearBacklogBtn: '.clear-backlog-btn',
+    feedbackContainer: '.feedback-container',
   };
   let previousElement;
 
@@ -309,32 +310,19 @@ const Ui = (function () {
         return;
       }
     },
-    // Gives user feedback when they add or remove something
-    // giveFeedback: function (action) {
-    //   const selectors = this.getUiSelectors();
-    //   const buttonContainer = document.querySelector(selectors.buttonContainer);
-    //   const feedbackContainer = document.createElement('div');
-    //   feedbackContainer.className = 'feedback-container';
-    //   const backBtnContainer = document.querySelector(
-    //     selectors.backBtnContainer
-    //   );
-    //   let output;
-    //   if (action === 'add') {
-    //     output = `<p class="feedback added-backlog">Item added to backlog</p>`;
-    //   } else {
-    //     output = `<p class="feedback removed-backlog">Item removed from backlog</p>`;
-    //   }
-    //   feedbackContainer.innerHTML = output;
-    //   backBtnContainer.insertAdjacentElement('afterend', feedbackContainer);
-    // },
-    // // ClearFeedback is called in a settime out after the add or remove button is clicked
-    // clearFeedback: function () {
-    //   const selectors = Ui.getUiSelectors();
-    //   const feedbackContainer = document.querySelector(
-    //     selectors.feedbackContainer
-    //   );
-    //   feedbackContainer.remove();
-    // },
+    // Gives user feedback when they enter a search query that results in an error
+    giveFeedback: function () {
+      this.clearContainer();
+      const selectors = this.getUiSelectors();
+      const container = document.querySelector(selectors.container);
+      const feedbackContainer = document.createElement('div');
+      feedbackContainer.className = 'feedback-container';
+
+      feedbackContainer.innerHTML =
+        '<p class="feedback-text">Error: Search query not found</p> <img class="feedback-image" alt="crying.jpg" src="/src/img/crying.jpg">';
+
+      container.append(feedbackContainer);
+    },
     // Settimeout will call this after the item is added to the backlog
     clearCheckmark: function () {
       const selectors = Ui.getUiSelectors();

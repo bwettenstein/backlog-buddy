@@ -40,11 +40,13 @@ const Omdb = (function () {
           // To test the json locally
           // fetch('/src/batman.json')
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          Ui.giveFeedback();
+          console.log(err, 'searchMovie');
+        });
     },
     searchFilmById: function (imdbId) {
       const attributes = this.getApiAttributes();
-
       // FOR URL ONLY
       // fetch(`${attributes.URL}i=${imdbId}&apikey=${attributes.API_KEY}`)
 
@@ -58,7 +60,9 @@ const Omdb = (function () {
           console.log(result, 'result');
           Ui.addResultsByIdToUi(result);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+        });
     },
     // The backlog array will only be populated with their imdbIds, so this function will search for their data using
     // their imdbId and display it
