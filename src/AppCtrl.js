@@ -1,6 +1,5 @@
 import { Ui } from './Ui';
-import { Ombdb, Omdb } from './Omdb';
-import { Tmdb } from './Tmdb';
+import { Omdb } from './Omdb';
 import { Backlog } from './Backlog';
 import { StorageControl } from './StorageControl';
 
@@ -10,7 +9,6 @@ const AppCtrl = (function () {
       const selectors = Ui.getUiSelectors();
       const searchBar = document.querySelector(selectors.searchBar);
       const searchBtn = document.querySelector(selectors.searchBtn);
-      const backBtn = document.querySelector(selectors.backBtn);
       const container = document.querySelector(selectors.container);
       const title = document.querySelector(selectors.title);
       const myBacklog = document.querySelector(selectors.myBacklog);
@@ -54,7 +52,6 @@ const AppCtrl = (function () {
           } else if (target === 'add-btn' || target === 'add-btn-container') {
             // call the add to backlog function here
             Ui.insertButtonContainer('addBtnClick');
-            setTimeout(Ui.clearCheckmark, 3000);
 
             const itemId = document.querySelector(selectors.resultByIdContainer)
               .id;

@@ -26,6 +26,9 @@ const Ui = (function () {
     clearBacklogBtn: '.clear-backlog-btn',
     feedbackContainer: '.feedback-container',
   };
+  // Previous element is used when constructing the back button that's present when you click on a search result
+  // Previous element will hold the previous search query, so when the back button is selected
+  // the searchByTitle method will run using the previous search query to get the previous results
   let previousElement;
 
   return {
@@ -66,6 +69,7 @@ const Ui = (function () {
       homepageFooterContainer.innerHTML = footerOutput;
       container.append(homepageFooterContainer);
     },
+    // Grabs the data returned from searching for the film by title and appends it to the Ui
     addResultsToUi: function (resultArray) {
       this.clearContainer();
       const selectors = this.getUiSelectors();
@@ -204,11 +208,6 @@ const Ui = (function () {
     },
     addBacklogToUi: function (backlogItemInfo) {
       const selectors = this.getUiSelectors();
-      const backlog = Backlog.getCurrentBacklog();
-      const backlogContainer = document.querySelector(
-        selectors.backlogContainer
-      );
-      const container = document.querySelector(selectors.container);
       let output;
       const backlogItem = document.createElement('div');
       backlogItem.id = backlogItemInfo.imdbID;
@@ -233,27 +232,18 @@ const Ui = (function () {
     },
     // Adds the back button for searching by id or Backlog
     insertBackButton: function (buttonFor) {
-      const selectors = this.getUiSelectors();
       let output;
       if (buttonFor === 'idResult') {
-        const resultByIdContainer = document.querySelector(
-          selectors.resultByIdContainer
-        );
         const backBtnContainer = document.createElement('div');
         backBtnContainer.className = 'back-btn-container';
-        // output = `
-        //   <i class="back-btn fas fa-arrow-left"></i>
-        // `;
         output = `<i class="back-btn fas fa-arrow-circle-left"></i>`;
         backBtnContainer.innerHTML = output;
         return backBtnContainer;
       }
     },
     insertAddButton: function () {
-      // let output;
       const addButtonContainer = document.createElement('div');
       addButtonContainer.className = 'add-btn-container';
-      // output = `<i class="add-btn fas fa-plus"></i>`;
       const output = `<i class="add-btn fas fa-plus-circle"></i>`;
       addButtonContainer.innerHTML = output;
       return addButtonContainer;
@@ -265,13 +255,8 @@ const Ui = (function () {
       removeButtonContainer.innerHTML = output;
       return removeButtonContainer;
     },
-    insertCheckmarkIcon: function () {
-      const checkmarkIconContainer = document.createElement('div');
-      checkmarkIconContainer.className = 'checkmark-icon-container';
-      const output = '<i class="checkmark-icon fas fa-check-circle"></i>';
-      checkmarkIconContainer.innerHTML = output;
-      return checkmarkIconContainer;
-    },
+    // Depending on the parameter, the button container will appear in different areas and have different styling
+    // All of the methods to create and remove buttons will modify the button contianer
     insertButtonContainer: function (containerFor) {
       const selectors = this.getUiSelectors();
       let backBtnContainer = this.insertBackButton('idResult');
@@ -280,7 +265,6 @@ const Ui = (function () {
         selectors.resultByIdContainer
       );
       let removeBtnContainer = this.insertRemoveButton();
-      let checkmarkIcon = this.insertCheckmarkIcon();
       let buttonContainer = document.createElement('div');
       buttonContainer.className = 'button-container';
       // If containerFor is idResult, that means the buttons should be added when the user clicks on a search result
@@ -292,22 +276,18 @@ const Ui = (function () {
           'beforebegin',
           buttonContainer
         );
-        // If the add button is clicked, remove it and replace it with the checkmark icon and remove button
+        // If the add button is clicked, remove it and replace it with the remove button
       } else if (containerFor === 'addBtnClick') {
         buttonContainer = document.querySelector(selectors.buttonContainer);
         addBtnContainer = document.querySelector(selectors.addBtnContainer);
         // deleting the button container
         addBtnContainer.remove();
-        // Creating container for remove button and checkmark icon
+        // Creating container for remove button
         let checkmarkRemoveContainer = document.createElement('div');
         checkmarkRemoveContainer.className = 'checkmark-remove-container';
-        checkmarkRemoveContainer.append(checkmarkIcon, removeBtnContainer);
+        checkmarkRemoveContainer.append(removeBtnContainer);
         // Add the container to the button container
         buttonContainer.append(checkmarkRemoveContainer);
-      }
-      // If container is searchResult, that means the buttons should be added to the elements after they have been searched
-      else {
-        return;
       }
     },
     // Gives user feedback when they enter a search query that results in an error
@@ -323,16 +303,8 @@ const Ui = (function () {
 
       container.append(feedbackContainer);
     },
-    // Settimeout will call this after the item is added to the backlog
-    clearCheckmark: function () {
-      const selectors = Ui.getUiSelectors();
-      const checkmarkIconContainer = document.querySelector(
-        selectors.checkmarkIconContainer
-      );
-      if (checkmarkIconContainer) {
-        checkmarkIconContainer.remove();
-      }
-    },
+    // This method will be called almost every time a user searches for something and clicks on the returned search result
+    // Will also be called whenever the user accesses their backlog and the homepage
     clearContainer: function () {
       const selectors = Ui.getUiSelectors();
       const container = document.querySelector(selectors.container);
@@ -366,6 +338,10 @@ const Ui = (function () {
     getPreviousElement: function () {
       return previousElement;
     },
+    // Sets the previous element to the returned array that holds all of the search results
+    // So instead of re-calling the search method, we just re-call the populate Ui method
+    // so when the user clicks on the back button it'll show the results they were just
+    // looking at
     setPreviousElement: function (filmObjectArray) {
       previousElement = filmObjectArray;
     },

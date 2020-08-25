@@ -6,28 +6,21 @@ const Omdb = (function () {
     API_KEY: 'de7f6f4e',
     URL: `http://www.omdbapi.com/?`,
   };
-  const filmObject = function (id, title, year) {
-    return {
-      id: id,
-      title: title,
-      year: year,
-    };
-  };
   return {
     getApiAttributes: function () {
       return apiAttributes;
     },
     searchMovie: function (searchTitle) {
-      // Ui.clearContainer();
       // Will be returned, this holds all of the objects in the array returned from the API's promise
       let filmObjectArray = [];
       const attributes = this.getApiAttributes();
 
-      // fetch('/src/batman.json')
+      // Fetch batman.json to test the API methods on a local file
+      //fetch('/src/batman.json')
+
       fetch(`${attributes.URL}s=${searchTitle}&apikey=${attributes.API_KEY}`)
         .then((data) => data.json())
         .then((results) => {
-          // console.log(results, 'DA RESULTS');
           const resultsArray = Array.from(results.Search);
 
           resultsArray.forEach((result) => {
@@ -36,15 +29,14 @@ const Omdb = (function () {
 
           Ui.addResultsToUi(filmObjectArray);
           Ui.setPreviousElement(filmObjectArray);
-
-          // To test the json locally
-          // fetch('/src/batman.json')
         })
         .catch((err) => {
           Ui.giveFeedback();
           console.log(err, 'searchMovie');
         });
     },
+    // Searching by ID yields much more detail about the selected item, when a user clicks
+    // on a search result,
     searchFilmById: function (imdbId) {
       const attributes = this.getApiAttributes();
       // FOR URL ONLY
