@@ -44,6 +44,7 @@ const AppCtrl = (function () {
 
         targetList = e.target.parentNode.classList;
         targetList.forEach((target) => {
+          console.log(targetList, 'targetlist');
           // Back button container often gets targeted depending on where the cursor clicks the icon,
           // so just include it with the event listener
           if (target === 'back-btn' || target === 'back-btn-container') {
@@ -100,6 +101,26 @@ const AppCtrl = (function () {
           // Repopulates the backlog container with the current backlog elements
           Ui.insertBacklogContainer();
         });
+    },
+    loadPaginationEventListeners: function (currentSearchQuery) {
+      const selectors = Ui.getUiSelectors();
+      let currentPagination = Omdb.getCurrentPage();
+
+      document.querySelector(selectors.prev).addEventListener('click', () => {
+        let page = Omdb.getCurrentPage();
+        if (page > 1) {
+          Omdb.modifyCurrentPage(currentPagination - 1);
+          Omdb.searchMovie(currentSearchQuery);
+        }
+      });
+
+      document.querySelector(selectors.next).addEventListener('click', () => {
+        let page = Omdb.getCurrentPage();
+        if (page >= 1) {
+          Omdb.modifyCurrentPage(currentPagination + 1);
+          Omdb.searchMovie(currentSearchQuery);
+        }
+      });
     },
     init: function () {
       this.loadEventListenersOnInit();

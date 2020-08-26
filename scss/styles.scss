@@ -243,6 +243,26 @@ body {
         }
       }
     }
+
+    .pagination-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      .prev {
+        margin-right: 1rem;
+      }
+      .prev,
+      .next {
+        cursor: pointer;
+        font-size: $feedback-font-size;
+      }
+      .prev:hover,
+      .next:hover {
+        border-bottom: solid;
+      }
+    }
+
     .result-by-id-container {
       padding-top: $result-by-id-top-padding;
       padding-bottom: $result-by-id-padding;
@@ -441,8 +461,15 @@ body {
 /* Portrait for iphones */
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
   body {
+    // display: flex;
+    // flex-direction: column;
+
+    // display: grid;
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    // grid-template-rows: auto 1fr auto;
+    margin: 0px;
 
     .nav {
       display: flex;
@@ -514,6 +541,7 @@ body {
 
       .backlog-container {
         .backlog-item-container {
+          height: 600px;
           flex-direction: column;
         }
       }

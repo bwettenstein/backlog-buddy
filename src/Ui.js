@@ -25,6 +25,8 @@ const Ui = (function () {
     backlogItemContainer: '.backlog-item-container',
     clearBacklogBtn: '.clear-backlog-btn',
     feedbackContainer: '.feedback-container',
+    prev: '.prev',
+    next: '.next',
   };
   // Previous element is used when constructing the back button that's present when you click on a search result
   // Previous element will hold the previous search query, so when the back button is selected
@@ -289,6 +291,19 @@ const Ui = (function () {
         // Add the container to the button container
         buttonContainer.append(checkmarkRemoveContainer);
       }
+    },
+    insertPaginationContainer: function () {
+      const selectors = this.getUiSelectors();
+      const container = document.querySelector(selectors.container);
+      const paginationContainer = document.createElement('div');
+      paginationContainer.className = 'pagination-container';
+
+      const output = `
+      <h3 class="prev">Prev</h3>
+      <h3 class="next">Next</h3>
+      `;
+      paginationContainer.innerHTML = output;
+      container.insertAdjacentElement('beforeend', paginationContainer);
     },
     // Gives user feedback when they enter a search query that results in an error
     giveFeedback: function () {

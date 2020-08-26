@@ -1,4 +1,5 @@
 import { Ui } from './Ui';
+import { AppCtrl } from './AppCtrl';
 
 // House info and methods for all the Used APIs
 const Omdb = (function () {
@@ -6,6 +7,15 @@ const Omdb = (function () {
     API_KEY: 'de7f6f4e',
     URL: `http://www.omdbapi.com/?`,
   };
+  // currentPage by default will be 1
+  // It's used to keep track of the current pagination when searching the API
+  // For example, if currentPage is 1 and the user clicks "next", currentPage
+  // will increase to 2 and search the 2nd page of results in the API
+  let currentPage = 1;
+  // Used by the searchMovie method to check whether or not the current search query
+  // is the same as the previous one. If they differ, then reset currentPage to 1.
+  // If they're the same, keep currentPage
+  let previousSearchTitle;
   return {
     getApiAttributes: function () {
       return apiAttributes;
@@ -13,14 +23,29 @@ const Omdb = (function () {
     searchMovie: function (searchTitle) {
       // Will be returned, this holds all of the objects in the array returned from the API's promise
       let filmObjectArray = [];
+      // If resultsTotal is greater than 10, insert pagination container
+      let resultsTotal;
       const attributes = this.getApiAttributes();
+      let page = this.getCurrentPage();
+
+      this.modifyPreviousSearchTitle(searchTitle);
+
+      if (previousSearchTitle !== searchTitle) {
+        this.modifyCurrentPage(1);
+        this.modifyPreviousSearchTitle(searchTitle);
+      }
 
       // Fetch batman.json to test the API methods on a local file
       //fetch('/src/batman.json')
 
-      fetch(`${attributes.URL}s=${searchTitle}&apikey=${attributes.API_KEY}`)
+      fetch(
+        `${attributes.URL}s=${searchTitle}&page=${page}&apikey=${attributes.API_KEY}`
+      )
         .then((data) => data.json())
         .then((results) => {
+          console.log('reuslts', results);
+          // console.log('totresults', results.totalResults);
+          resultsTotal = results.totalResults;
           const resultsArray = Array.from(results.Search);
 
           resultsArray.forEach((result) => {
@@ -29,6 +54,11 @@ const Omdb = (function () {
 
           Ui.addResultsToUi(filmObjectArray);
           Ui.setPreviousElement(filmObjectArray);
+
+          if (resultsTotal > 10) {
+            Ui.insertPaginationContainer();
+            AppCtrl.loadPaginationEventListeners(searchTitle);
+          }
         })
         .catch((err) => {
           Ui.giveFeedback();
@@ -78,6 +108,18 @@ const Omdb = (function () {
         return false;
       }
       return true;
+    },
+    getCurrentPage: function () {
+      return currentPage;
+    },
+    modifyCurrentPage: function (newCurrentPage) {
+      currentPage = newCurrentPage;
+    },
+    getPreviousSearchTitle: function () {
+      return previousSearchTitle;
+    },
+    modifyPreviousSearchTitle: function (newSearchTitle) {
+      previousSearchTitle = newSearchTitle;
     },
   };
 })();
