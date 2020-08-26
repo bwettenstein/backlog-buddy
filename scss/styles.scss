@@ -437,3 +437,86 @@ body {
     }
   }
 }
+
+/* Portrait for iphones */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+  body {
+    display: flex;
+    flex-direction: column;
+
+    .nav {
+      display: flex;
+      flex-direction: row;
+      height: auto;
+      align-items: center;
+      justify-content: center;
+      padding-top: 0.5rem;
+      flex-wrap: wrap;
+
+      .title {
+        .backlog-buddy {
+          margin: 0;
+          font-size: 1.5rem;
+          font-weight: 800;
+          padding-bottom: 0.25rem;
+        }
+      }
+
+      .search-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        .search-bar {
+          width: 10rem;
+        }
+
+        .search-btn {
+          display: none;
+        }
+      }
+
+      .my-backlog {
+        margin: 0;
+        padding-top: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    .container {
+      .homepage-container {
+        height: 600px;
+
+        .homepage-info-container {
+          text-align: center;
+        }
+      }
+
+      .homepage-footer-container {
+        .homepage-footer-image {
+          margin-right: 0.5rem;
+          max-height: none;
+        }
+      }
+
+      .search-results-container {
+        flex-direction: column;
+
+        .search-result-item {
+          margin-left: 0;
+          border-left: none;
+          border-right: none;
+        }
+      }
+
+      .id-result {
+        flex-direction: column;
+      }
+
+      .backlog-container {
+        .backlog-item-container {
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
