@@ -11,4 +11,5 @@ https://backlog-buddy.netlify.app
 # Credits
 
 [Omdb API](http://www.omdbapi.com) - Providing the data
+
 [Traversy Media's Modern Javascript From the Beginning](https://www.udemy.com/course/modern-javascript-from-the-beginning/) - Introducing the module design method which I based the writing on. The "Tracalorie" project also introduced me to the uses of using the built in LocalStorage method
