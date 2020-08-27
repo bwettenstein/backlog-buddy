@@ -15,7 +15,7 @@ const Omdb = (function () {
   // Used by the searchMovie method to check whether or not the current search query
   // is the same as the previous one. If they differ, then reset currentPage to 1.
   // If they're the same, keep currentPage
-  let previousSearchTitle;
+  let previousSearchTitle = null;
   return {
     getApiAttributes: function () {
       return apiAttributes;
@@ -28,11 +28,11 @@ const Omdb = (function () {
       const attributes = this.getApiAttributes();
       let page = this.getCurrentPage();
 
-      this.modifyPreviousSearchTitle(searchTitle);
-
-      if (previousSearchTitle !== searchTitle) {
-        this.modifyCurrentPage(1);
+      // If the previousSearchTitle and current searchTitle differ, reset the pagination and reassign page
+      if (previousSearchTitle !== searchTitle || previousSearchTitle == null) {
         this.modifyPreviousSearchTitle(searchTitle);
+        this.modifyCurrentPage(1);
+        page = this.getCurrentPage();
       }
 
       // Fetch batman.json to test the API methods on a local file
@@ -43,7 +43,7 @@ const Omdb = (function () {
       )
         .then((data) => data.json())
         .then((results) => {
-          console.log('reuslts', results);
+          // console.log('reuslts', results);
           // console.log('totresults', results.totalResults);
           resultsTotal = results.totalResults;
           const resultsArray = Array.from(results.Search);

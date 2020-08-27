@@ -16,6 +16,10 @@ const AppCtrl = (function () {
       title.addEventListener('click', function () {
         Ui.clearContainer();
         Ui.homePage();
+
+        // Each time home page is loaded, the search parameters held in the Omdb methods should be reset
+        Omdb.modifyCurrentPage(1);
+        Omdb.modifyPreviousSearchTitle('');
       });
 
       searchBtn.addEventListener('click', function () {
@@ -34,7 +38,7 @@ const AppCtrl = (function () {
         const backlog = Backlog.getCurrentBacklog();
         Ui.insertBacklogContainer();
         backlog.forEach((item) => {
-          console.log(item, 'item');
+          // console.log(item, 'item');
           Omdb.searchFilmForBacklog(item);
         });
       });
@@ -44,7 +48,7 @@ const AppCtrl = (function () {
 
         targetList = e.target.parentNode.classList;
         targetList.forEach((target) => {
-          console.log(targetList, 'targetlist');
+          // console.log(targetList, 'targetlist');
           // Back button container often gets targeted depending on where the cursor clicks the icon,
           // so just include it with the event listener
           if (target === 'back-btn' || target === 'back-btn-container') {
