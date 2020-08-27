@@ -5,7 +5,7 @@ import { AppCtrl } from './AppCtrl';
 const Omdb = (function () {
   const apiAttributes = {
     API_KEY: 'de7f6f4e',
-    URL: `http://www.omdbapi.com/?`,
+    URL: `https://www.omdbapi.com/?`,
   };
   // currentPage by default will be 1
   // It's used to keep track of the current pagination when searching the API
