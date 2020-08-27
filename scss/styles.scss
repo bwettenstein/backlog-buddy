@@ -8,12 +8,12 @@ body {
   font-family: $font-family;
   margin: 0px;
 
-  nav {
+  .nav {
     padding: 0;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    height: 5vh;
+    height: 10vh;
     background-color: $grey;
     // border-bottom: solid;
 
@@ -227,6 +227,7 @@ body {
         align-items: center;
         pointer-events: all;
         text-align: center;
+        cursor: pointer;
 
         .title-container {
           pointer-events: none;
@@ -237,9 +238,18 @@ body {
           pointer-events: none;
         }
 
+        .result-title {
+          font-weight: normal;
+        }
+
         .result-poster {
           height: 200px;
           width: 150px;
+        }
+      }
+      .search-result-item:hover {
+        .result-title {
+          font-weight: bold;
         }
       }
     }
