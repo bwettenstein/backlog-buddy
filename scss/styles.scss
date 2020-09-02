@@ -8,6 +8,14 @@ body {
   font-family: $font-family;
   margin: 0px;
 
+  button:focus {
+    outline: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
   .nav {
     padding: 0;
     display: flex;
@@ -40,10 +48,14 @@ body {
         border: none;
         letter-spacing: 0.2px;
         background-color: $light-grey;
+        transition: all 0.4s ease;
       }
 
       .search-btn:hover {
         border: solid $gunmetal-grey;
+        width: 6rem;
+        height: 2.5rem;
+        letter-spacing: 2px;
       }
     }
 
@@ -79,7 +91,7 @@ body {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-image: url($stock-img);
+      background: url($stock-img) #333;
       background-size: cover;
       opacity: 0.9;
 
@@ -173,6 +185,10 @@ body {
           height: $back-btn-height;
           cursor: pointer;
         }
+
+        .back-btn:hover {
+          transform: scale(1.2);
+        }
       }
 
       .add-btn-container {
@@ -182,6 +198,9 @@ body {
           width: $add-btn-big-width;
           height: $add-btn-big-height;
           cursor: pointer;
+        }
+        .add-btn:hover {
+          transform: scale(1.2);
         }
       }
 
@@ -196,6 +215,11 @@ body {
           height: $back-btn-height;
         }
 
+        .checkmark-icon:hover,
+        .remove-btn:hover {
+          transform: scale(1.2);
+        }
+
         .checkmark-icon {
           color: $feedback-added-color;
         }
@@ -207,8 +231,6 @@ body {
     }
     .search-results-container {
       margin: 0 auto;
-      // Use below for media query possibly
-      // padding-top: 5vh;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -217,9 +239,9 @@ body {
         flex: 0 40%;
         padding: 0.5rem;
         box-sizing: border-box;
-        border-left: solid;
-        border-right: solid;
-        border-bottom: solid;
+        border-left: solid 0.5px;
+        border-right: solid 0.5px;
+        border-bottom: solid 1px;
         margin-left: 1rem;
 
         display: flex;
@@ -269,7 +291,8 @@ body {
       }
       .prev:hover,
       .next:hover {
-        border-bottom: solid;
+        transform: scale(1.2);
+        border-bottom: #333 solid 0.4px;
       }
     }
 
@@ -376,6 +399,7 @@ body {
             transition: all 0.3s;
           }
           .clear-backlog-btn:hover {
+            border: solid $gunmetal-grey;
             letter-spacing: 2px;
           }
           .clear-backlog-btn:hover::before {
@@ -447,12 +471,17 @@ body {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
 
       .feedback-text {
         text-align: center;
         padding-top: $feedback-text-padding-top;
         color: $feedback-text-color;
         font-size: $feedback-font-size;
+      }
+
+      .feedback-image {
+        max-width: 50%;
       }
     }
   }
@@ -464,6 +493,13 @@ body {
     .footer-text {
       color: $white;
       font-weight: lighter;
+
+      a {
+        font-weight: bold;
+        text-decoration: underline;
+        color: white;
+        font-size: 1.3rem;
+      }
     }
   }
 }
@@ -541,6 +577,7 @@ body {
           margin-left: 0;
           border-left: none;
           border-right: none;
+          border-bottom: #333 0.4px dotted;
         }
       }
 
@@ -553,6 +590,14 @@ body {
           height: 600px;
           flex-direction: column;
         }
+      }
+    }
+    footer {
+      a {
+        font-weight: bold;
+        text-decoration: underline;
+        color: white;
+        font-size: 1.3rem;
       }
     }
   }
