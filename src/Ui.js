@@ -34,6 +34,8 @@ const Ui = (function () {
   let previousElement;
 
   return {
+    // By far the most used method in the app. Allows other methods to grab the Ui selectors which helps when
+    // taking data/manipulating DOM elements
     getUiSelectors: function () {
       return UiSelectors;
     },

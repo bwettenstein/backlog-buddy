@@ -99,6 +99,7 @@ const Omdb = (function () {
         })
         .catch((err) => console.log(err));
     },
+    // This method basically checks if the item is fresh or not fresh on rotten tomatoes. According to rotten tomatoes, a score of 60% means that a film/tv show is fresh
     determineIfFresh: function (rottenTomatoesRating) {
       // Get rid of percent sign at end of value
       rottenTomatoesRating = String(rottenTomatoesRating);
