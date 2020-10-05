@@ -375,6 +375,7 @@ body {
 
       .backlog-stats-container {
         text-align: center;
+        margin: 1rem 0;
         .my-backlog-title {
           text-align: center;
         }
@@ -433,9 +434,8 @@ body {
       }
 
       .backlog-item-container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         justify-content: center;
         align-items: center;
         .backlog-item {
