@@ -456,7 +456,6 @@ body {
           .title-container,
           .backlog-poster {
             cursor: pointer;
-            // pointer-events: none;
           }
 
           .backlog-poster {
@@ -470,6 +469,11 @@ body {
 
           .title-container:hover {
             text-decoration: underline;
+          }
+          // Allows for hovering effects and keeps the "search item" event listener on the backlog item container
+          .backlog-poster:active,
+          .title-container:active {
+            pointer-events: none;
           }
         }
       }
