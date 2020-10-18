@@ -21,7 +21,9 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    max-height: 10vh;
+    min-height: 15vh;
+    max-height: 20vh;
+    height: auto;
     background-color: $grey;
     // border-bottom: solid;
 
@@ -449,20 +451,26 @@ body {
           align-items: center;
           pointer-events: all;
           text-align: center;
-          cursor: pointer;
+          // cursor: pointer;
+
+          .title-container,
+          .backlog-poster {
+            cursor: pointer;
+            // pointer-events: none;
+          }
 
           .backlog-poster {
             height: $backlog-poster-height;
             width: $backlog-poster-width;
           }
-
-          .title-container,
-          .backlog-poster {
-            pointer-events: none;
+          .backlog-poster:hover {
+            opacity: 0.8;
+            border: solid 3px $gunmetal-grey;
           }
-        }
-        .backlog-item:hover {
-          border: solid $gunmetal-grey;
+
+          .title-container:hover {
+            text-decoration: underline;
+          }
         }
       }
     }
